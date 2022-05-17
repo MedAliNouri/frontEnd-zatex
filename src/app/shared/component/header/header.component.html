@@ -1,32 +1,29 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img style="margin-left: 10px;" src="assets/login.PNG" alt="" width="120" height="50"> 
-          </a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        
-        </ul>
-     
-        <div  class="dropdown">
-            <a (click)="op.toggle($event)"  >
-              <img *ngIf="!user.urlPhoto" class="app-avatar" src="assets/default.jpg" alt="avatar">
-              <!-- <img *ngIf="!user.urlPhoto" class="app-avatar" [ngxLetterImageAvatar]="{ name:name }" alt="avatar"> -->
-            </a>
-                
+<nav style="   background-color:#003d99 ; height: 64px;"  class="navbar  navbar-dark ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <h1 style="text-align: center;  margin-top: -16px;  margin-bottom: 0!important;">ZATEX</h1>
+    </a>
 
-           
-          </div>
-      </div>
+      <ul >
+        <div class="dropdown">
+          <a (click)="op.toggle($event)">
+            <img *ngIf="user.urlPhoto" class="app-avatar" [src]="user.urlPhoto" alt="avatar">
+            <img *ngIf="!user.urlPhoto" class="app-avatar" [ngxLetterImageAvatar]="{ name:name }" alt="avatar">
+          </a>
+        </div>
+      </ul>
+
+    
+   
+  </div>
+</nav>
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div class="dropdowntog">
+
+      <a>Profile</a>
+      <a (click)="logOut()">Logout</a>
+
     </div>
-  </nav>
-  <p-overlayPanel #op>
-    <ng-template pTemplate>
-        <div class="dropdowntog">
-            
-         <a >Profile</a>
-            <a (click)="logOut()">Logout</a>
-        
-          </div>
-    </ng-template>
+  </ng-template>
 </p-overlayPanel>

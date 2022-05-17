@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './component/pages/not-found/not-found.component';
 import { AuthGuard } from './services/authentification/auth.guard';
 import { PreventLoggedInAccess } from './services/authentification/preventLoggedInAccess';
 import { ContentLayoutComponent } from './shared/component/content-layout/content-layout.component';
@@ -12,7 +13,8 @@ loadChildren:()=>import('./component/auth/auth.module').then(a=>a.AuthModule)},
   component:ContentLayoutComponent,
   canActivate:[AuthGuard],
   children:content_child},
-  
+  { path: '**', pathMatch: 'full', 
+  component: NotFoundComponent },
 ];
 
 @NgModule({

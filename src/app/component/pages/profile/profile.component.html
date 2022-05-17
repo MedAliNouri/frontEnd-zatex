@@ -1,0 +1,123 @@
+<div class="container">
+    <div class="row ">
+
+        <div *ngIf="user" class=" form">
+            <h1 class="title">Profile</h1>
+            <h5 class="description mb-5">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input (change)="selectFile($event)" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                    </div>
+
+                    <div class="avatar-preview">
+                        <p-progressSpinner *ngIf="loadingImg"
+                            [style]="{width: '20px', height: '50px',margin:'auto',position:'absolute'}"
+                            styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)"
+                            animationDuration=".5s"></p-progressSpinner>
+                        <div id="imagePreview" style="background-image: url({{user.urlPhoto}});">
+                        </div>
+                    </div>
+                </div>
+            
+                <form [formGroup]="registerForm" class="inputs">
+                    <div class="row">
+
+
+                        <div class="field col-sm-6">
+                            <label for="name">name</label><br>
+                            <input formControlName="name" placeholder="nom " style="width: 100%;"
+                                [ngClass]="{'ng-invalid': isControlHasError('name','required')  && submited}"
+                                pInputText />
+                            <small id="username2-help" class="p-error block"
+                                *ngIf="isControlHasError('name','required')  && submited">Name and lastName is
+                                required.</small>
+
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">lastName</label><br>
+                            <input formControlName="lastName" placeholder="prénom" style="width: 100%;"
+                                [ngClass]="{'ng-invalid': isControlHasError('lastName','required')  && submited}"
+                                pInputText />
+                            <small id="username2-help" class="p-error block"
+                                *ngIf="isControlHasError('lastName','required')  && submited">prénom and lastName is
+                                required.</small>
+
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">email</label><br>
+                            <input autocomplete="no" formControlName="email" placeholder="Email"
+                                [ngClass]="{'ng-invalid': isControlHasError('email','required')  && submited}"
+                                [style]="{'width': '100%'}" pInputText>
+                            <small class="p-error block" *ngIf="isControlHasError('email','required') && submited">Email
+                                is required.</small>
+                            <small class="p-error block" *ngIf="isControlHasError('email','email') && submited">Email is
+                                not valid.</small>
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">post</label><br>
+                            <input formControlName="post" placeholder="post"
+                                [ngClass]="{'ng-invalid': isControlHasError('post','required')  && submited}"
+                                [style]="{'width': '100%'}" pInputText>
+                            <small class="p-error block" *ngIf="isControlHasError('post','required') && submited">post
+                                is required.</small>
+
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">civility</label><br>
+                            <input formControlName="civility" placeholder="civility"
+                                [ngClass]="{'ng-invalid': isControlHasError('civility','required')  && submited}"
+                                [style]="{'width': '100%'}" pInputText>
+                            <small class="p-error block"
+                                *ngIf="isControlHasError('civility','required') && submited">civility is
+                                required.</small>
+
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">social Reason</label><br>
+                            <input formControlName="socialReason" placeholder="socialReason"
+                                [ngClass]="{'ng-invalid': isControlHasError('socialReason','required')  && submited}"
+                                [style]="{'width': '100%'}" pInputText>
+                            <small class="p-error block"
+                                *ngIf="isControlHasError('socialReason','required') && submited">socialReason is
+                                required.</small>
+
+                        </div>
+                        <div class="field  col-sm-6">
+                            <label for="name">phone</label><br>
+                            <input formControlName="phone" placeholder="tel"
+                                [ngClass]="{'ng-invalid': isControlHasError('phone','required')  && submited}"
+                                [style]="{'width': '100%'}" pInputText>
+                            <small class="p-error block" *ngIf="isControlHasError('phone','required') && submited">phone
+                                is required.</small>
+
+                        </div>
+                        <div class="field col-sm-6">
+                            <label for="name">password</label><br>
+                            <p-password formControlName="password" placeholder="password"
+                                [inputStyle]="{'width': '100%'}" [style]="{'width': '100%'}"></p-password>
+                            <small class="p-error block"
+                                *ngIf="isControlHasError('password','required') && submited">Password is
+                                required.</small>
+                        </div>
+
+                    </div>
+                    <div class="forgetPss">
+                    </div>
+                   
+
+                </form>
+                <button (click)="save()" [style]="{'margin-top':'20px'}"  [loading]="isLoading"pButton pRipple type="button" label="save" class="p-button-raised" styleClass="p-button-sm"></button>
+            </h5>
+
+
+
+
+
+            <hr>
+
+            <!-- <p class="signUp"> return to login page? <a routerLink="/auth/login"> <b><i class="fa fa-arrow-left" aria-hidden="true"></i></b> </a></p> -->
+        </div>
+
+    </div>
+</div>

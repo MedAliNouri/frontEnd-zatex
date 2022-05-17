@@ -16,7 +16,8 @@ export class RegisterComponent implements OnInit {
   isLoading=false
   constructor(private fb:FormBuilder,private userService:UserService,private router:Router) { 
   this.registerForm=  this.fb.group({
-    name_lastName: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required,Validators.email]),
       password: new FormControl('', [Validators.required,Validators.min(6)]),
       confirmationPassword: new FormControl('', [Validators.required]),

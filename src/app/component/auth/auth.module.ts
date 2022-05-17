@@ -5,13 +5,17 @@ import { AuthRoutingModule } from './auth-routing.module';
 import {InputTextModule} from 'primeng/inputtext';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
+
 import {ButtonModule} from 'primeng/button';
 import {PasswordModule} from 'primeng/password';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MailValidationComponent } from './mail-validation/mail-validation.component';
+
 import {InputNumberModule} from 'primeng/inputnumber';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { MailValidationComponent } from './pages/mail-validation/mail-validation.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { SuccessCreationComponent } from './pages/success-creation/success-creation.component';
+
 @NgModule({
   declarations: [
 
@@ -19,7 +23,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     LoginComponent,
     ResetPasswordComponent,
     MailValidationComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SuccessCreationComponent
   ],
   imports: [
     SkeletonModule,

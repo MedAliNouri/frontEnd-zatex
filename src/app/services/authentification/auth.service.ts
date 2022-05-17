@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { BehaviorSubject, catchError } from 'rxjs';
 import { errorMgmt } from '../api/errorHandling';
 import { User } from 'src/app/models/userModel';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,10 +25,22 @@ export class AuthService {
     this.router.navigateByUrl('/auth/login')
   }
 
+  itemValue = new BehaviorSubject(this.theItem);
 
-
+  set theItem(value) {
+    this.itemValue.next(value); 
+    console.log(value.urlPhoto)// this will make sure to tell every subscriber about the change.
+    localStorage.setItem('USER',JSON.stringify(value) );
+  }
+ 
+  get theItem() {
+    if(localStorage.getItem("USER")){
+      return JSON.parse(localStorage.getItem("USER")|| "") 
+    }
+     }
   storeLogedUser(data: any) {
-    localStorage.setItem('USER', JSON.stringify(data.user))
+    // localStorage.setItem('USER', JSON.stringify(data.user))
+    this.theItem=data.user
     localStorage.setItem('TOKEN', data.token)
   }
   get isLoggedIn() {

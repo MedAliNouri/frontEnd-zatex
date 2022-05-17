@@ -1,0 +1,30 @@
+
+
+<div class="container">
+    <div class="row center">
+     <div>
+         <img src="assets/verif_mail.jpg" alt="">
+     </div>
+        <div class=" form">
+            <h1 class="title">Vérification</h1>
+            <h5 class="description mb-5">
+              
+                
+                Nous devons vérifier votre adresse e-mail avant que vous puissiez accéder à votre dashboard.
+                
+                Vérifiez votre verifié votre boite mail.
+                
+                Merci !
+               </h5>
+         
+              
+                   
+                    <button (click)="resend_mail()" [loading]="isLoading" [style]="{'width': '100%'}" pButton pRipple type="button" label="renvoyer un email" class="p-button-raised" styleClass="p-button-sm"></button>
+         
+         <hr>
+       
+         <p class="signUp"> return to login page? <a routerLink="/auth/login"> <b><i class="fa fa-arrow-left" aria-hidden="true"></i></b> </a></p>
+        </div>
+    
+    </div>
+</div>

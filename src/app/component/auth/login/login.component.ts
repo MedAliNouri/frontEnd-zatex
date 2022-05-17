@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from 'src/app/services/api/user.service';
 import { AuthService } from 'src/app/services/authentification/auth.service';
 import Swal from 'sweetalert2';
 
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   contactForm: any
   submited=false
   isLoading=false
-  constructor(private fb:FormBuilder,private router:Router,private authService:AuthService) { 
+  constructor(private userService: UserService,private fb:FormBuilder,private router:Router,private authService:AuthService,private route:ActivatedRoute) { 
   this.contactForm=  this.fb.group({
       email: new FormControl('', [Validators.required,Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('work')
+
+   
   }
   isControlHasError(controlName: string, validationType: string): boolean {
     const control = this.contactForm.controls[controlName];
@@ -48,35 +50,54 @@ export class LoginComponent implements OnInit {
         this.isLoading=false
         console.log(res)
         if(res.status==false){
-          Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-           color: 'red',
-            background: '#f4f4f4',
-            timer: 3000,
-            icon: 'error',
-            title: res.data,
-          
-          })
-          
+     
+          if(res.code!==2){
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+             
+              showConfirmButton: false,
+             color: 'red',
+              background: '#f4f4f4',
+              timer: 5000,
+              icon: 'error',
+              title: res.data,
+            
+            })
+            return
+          }
+         
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              text:"envoyer un mail de verification",
+              showConfirmButton: true,
+             color: 'red',
+              background: '#f4f4f4',
+              timer: 5000,
+              icon: 'error',
+              title: res.data,
+              preConfirm: (email:any) => {
+                this.userService.send_verification_mail(this.contactForm.controls['email'].value)
+                .subscribe( async(response:any) => {
+                  console.log(response)
+                  if (await response.status ===true) {
+                    Swal.fire(`Mail envoyé avec succès`);
+                   
+                  } else {
+                 
+                  Swal.showValidationMessage(response.message)
+                  
+                  }
+                });
+                 
+              }
+            })
+            
+      
         }else{
           console.log(res.data.user.isVerified)
-          // if(!res.data.user.isVerified){
-          //   this.router.navigateByUrl('/auth/mailValidation')
-          //   Swal.fire({
-          //     toast: true,
-          //     position: 'top-end',
-          //     showConfirmButton: false,
-          //    color: 'red',
-          //     background: '#f4f4f4',
-          //     timer: 3000,
-          //     icon: 'error',
-          //     title: "votre compte n'est pas vérifier",
-            
-          //   })
-          //   return
-          // }
+         
           this.authService.storeLogedUser(res.data)
           this.router.navigateByUrl('/')
         }

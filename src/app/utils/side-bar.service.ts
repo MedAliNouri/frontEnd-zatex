@@ -13,8 +13,8 @@ menu_item:any[]=[]
 fillMenu(){
   this.menu_item.push(
     {title:"dashboard",link:"/dashboard",icon:"fa fa-tachometer"},
-     {title:"users",link:"/users",icon:"fa fa-users"},
-     
+     {title:"users",link:"/pages/users",icon:"fa fa-users"},
+     {title:"station",link:"/station",icon:"fa fa-map-marker"},
   )
 }
 items = new BehaviorSubject<any[]>(this.menu_item);

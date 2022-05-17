@@ -8,11 +8,15 @@ import { DashboardModule } from './component/dashboard/dashboard.module';
 import { ContentLayoutComponent } from './shared/component/content-layout/content-layout.component';
 import { SharedModule } from './shared/shared.module';
 import { HeaderComponent } from './shared/component/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TokenInterceptorService } from './services/authentification/token-interceptor.service';
+import { NotFoundComponent } from './component/pages/not-found/not-found.component';
+import { PagesModule } from './component/pages/pages.module';
 @NgModule({
   declarations: [
     AppComponent,
+
    
   
   ],
@@ -24,8 +28,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     AuthModule,
     DashboardModule,
     SharedModule,
+    PagesModule
   ],
-  providers: [],
+  providers: [ {
+   
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true,
+    
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

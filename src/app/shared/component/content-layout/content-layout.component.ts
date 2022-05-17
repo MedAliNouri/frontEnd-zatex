@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/api/user.service';
 
 @Component({
   selector: 'app-content-layout',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentLayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService:UserService) { 
+    this.userService.getAll().subscribe(res=>{
+      console.log(res)
+    })
+  }
 
   ngOnInit(): void {
   }

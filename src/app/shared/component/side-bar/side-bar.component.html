@@ -1,4 +1,12 @@
-<nav id="sidebarMenu" class="d-md-block bg-dark sidebar collapse">
+<nav id="sidebarMenu" style="background-color:#003d99 ;" class="d-md-block  sidebar collapse">
+  <div class="user">
+    <div class="user_info"> <h4>{{user.name }} {{ user.lastName}}</h4></div>
+    <p class="user_info">{{user.email }} </p>
+    <a routerLink="/pages/profile" >
+      <img *ngIf="user.urlPhoto" class="app-avatar" [src]="user.urlPhoto" alt="avatar">
+      <img *ngIf="!user.urlPhoto" class="app-avatar" [ngxLetterImageAvatar]="{ name:name }" alt="avatar"></a>
+  </div>
+  
     <div style="height: 35.5em;" class="position-sticky pt-3">
       <ul class="nav flex-column">
         <li *ngFor="let item of items" class="nav-item">

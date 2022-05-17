@@ -3,7 +3,7 @@
     <div class="row center">
         <div  class="col ">
 <section>
-    <img src="assets/signIn.jpg" alt="">
+    <img src="assets/zatexlogo.jpg" alt="">
 </section>
         </div>
         <div class="col form">
@@ -13,7 +13,7 @@
                 <form [formGroup]="contactForm" class="inputs">
                     <div class="field">
                        
-                        <input formControlName="email" placeholder="Email" style="width: 100%;" [ngClass]="{'ng-invalid': isControlHasError('email','required')  && submited}"  pInputText />
+                        <input autocomplete="nope" formControlName="email" placeholder="Email" style="width: 100%;" [ngClass]="{'ng-invalid': isControlHasError('email','required')  && submited}"  pInputText />
                         <small  id="username2-help" class="p-error block" *ngIf="isControlHasError('email','required')  && submited">Email is required.</small>
                         <small  id="username2-help" class="p-error block" *ngIf="isControlHasError('email','email') && submited">Email is not valid.</small>
                     </div>

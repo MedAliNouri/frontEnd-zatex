@@ -1,0 +1,185 @@
+<p-card header="User Table" [style]="{width: '100%'}" styleClass="p-card-shadow">
+    <ng-template pTemplate="header">
+
+
+    </ng-template>
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple type="button" label="New" icon="fa fa-plus" (click)="openNew()"
+                class="p-button-sm p-button-raised "></button>
+            <button [style]="{'margin-left': '5px'}" pButton pRipple type="button" icon="fa fa-trash"
+                (click)="deleteSelectedProducts()" [disabled]="!selectedUser || !selectedUser.length"
+                class="p-button-sm p-button-raised p-button-danger ml-4"></button>
+
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <div class="flex align-items-center justify-content-between">
+
+                <span class="p-input-icon-left">
+                    <i class="fa fa-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target['value'], 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="users" [rows]="5" [paginator]="true" [loading]="loading"
+        [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="stack"
+        [(selection)]="selectedUser" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th>Photo</th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                </th>
+                <th pSortableColumn="lastName">prénom <p-sortIcon field="lastName"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                </td>
+
+                <td><img style="border-radius:50% ;" [src]="user.urlPhoto" [alt]="user.name" height="50" width="50" class="shadow-4" /></td>
+                <td>{{user.name}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.role}}</td>
+                <td>
+                    <button pButton pRipple icon="fa fa-pencil"
+                        class="p-button-sm  p-button-warning mr-2" (click)="editUser(user)"></button>
+                    <button pButton pRipple icon="fa fa-trash" class="p-button-sm p-button-danger"
+                        (click)="delete(user._id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{users ? users.length : 0 }} users.
+            </div>
+        </ng-template>
+    </p-table>
+
+    <ng-template pTemplate="footer">
+
+    </ng-template>
+</p-card>
+<p-dialog [(visible)]="dialog_show" [style]="{width: '450px'}" header="User Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+
+    <form #f="ngForm">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input (change)="selectFile(user,$event)" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                    </div>
+                    
+                    <div  class="avatar-preview">
+                        <p-progressSpinner *ngIf="loadingImg" [style]="{width: '20px', height: '50px',margin:'auto',position:'absolute'}" styleClass="custom-spinner" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s"></p-progressSpinner>
+                        <div id="imagePreview" style="background-image: url({{imageSrc}});">
+                        </div>
+                    </div>
+                </div>
+              
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" pInputText id="name" name="name" [(ngModel)]="user.name" required autofocus />
+
+            <p-message *ngIf="submitted && !user.name" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">Last name</label>
+            <input type="text" name="lastName" pInputText id="name" [(ngModel)]="user.lastName" required autofocus />
+
+            <p-message *ngIf="submitted && !user.lastName" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">Email</label>
+            <input type="text" name="email" pInputText id="name" [(ngModel)]="user.email" required autofocus />
+
+            <p-message *ngIf="submitted && !user.email" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">Phone</label>
+            <input type="text" name="phone" pInputText id="name" [(ngModel)]="user.phone" required autofocus />
+
+            <p-message *ngIf="submitted && !user.phone" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">Role</label>
+            <p-dropdown name="role" [options]="roles" [(ngModel)]="user.role" ></p-dropdown>
+
+            <p-message *ngIf="submitted && !user.role" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">post</label>
+            <input type="text" name="post" pInputText id="post" [(ngModel)]="user.post" required autofocus />
+
+            <p-message *ngIf="submitted && !user.post" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">civility</label>
+            <input type="text" name="civility" pInputText id="civility" [(ngModel)]="user.civility" required autofocus />
+
+            <p-message *ngIf="submitted && !user.civility" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field">
+            <label for="name">socialReason</label>
+            <input type="text" name="socialReason" pInputText id="socialReason" [(ngModel)]="user.socialReason" required autofocus />
+
+            <p-message *ngIf="submitted && !user.socialReason" severity="error" text="Field is required"></p-message>
+        </div> 
+       
+        <div class="field">
+            <label for="name">Password</label>
+            <input type="text" name="Password" pInputText id="name" [(ngModel)]="user.password"  autofocus />
+
+           
+        </div>
+        <div *ngIf="!user._id" class="field">
+            <label for="name">mail verified?</label><br>
+            <p-inputSwitch name="isVerified"  [(ngModel)]="user.isVerified"></p-inputSwitch>
+
+            
+        </div> 
+        <div *ngIf="loading_save_result" class="loader-wrapper">
+            <div class="loader">
+            <div class="roller"></div>
+            <div class="roller"></div>
+          </div>
+          
+          <div id="loader2" class="loader">
+            <div class="roller"></div>
+            <div class="roller"></div>
+          </div>
+          
+          <div id="loader3" class="loader">
+            <div class="roller"></div>
+            <div class="roller"></div>
+          </div>
+        </div>
+    </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button  pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button [disabled]="loading_save_result" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveUser()"></button>
+    </ng-template>
+</p-dialog>

@@ -10,8 +10,14 @@
                 <form   [formGroup]="registerForm" class="inputs">
                     <div class="field">
                        
-                        <input formControlName="name_lastName" placeholder="nom et prénom" style="width: 100%;" [ngClass]="{'ng-invalid': isControlHasError('name_lastName','required')  && submited}"  pInputText />
-                        <small  id="username2-help" class="p-error block" *ngIf="isControlHasError('name_lastName','required')  && submited">Name and lastName is required.</small>
+                        <input formControlName="name" placeholder="nom " style="width: 100%;" [ngClass]="{'ng-invalid': isControlHasError('name','required')  && submited}"  pInputText />
+                        <small  id="username2-help" class="p-error block" *ngIf="isControlHasError('name','required')  && submited">Name and lastName is required.</small>
+                       
+                    </div>
+                    <div class="field password">
+                       
+                        <input formControlName="lastName" placeholder="prénom" style="width: 100%;" [ngClass]="{'ng-invalid': isControlHasError('lastName','required')  && submited}"  pInputText />
+                        <small  id="username2-help" class="p-error block" *ngIf="isControlHasError('lastName','required')  && submited">Name and lastName is required.</small>
                        
                     </div>
                     <div class="field password">

@@ -16,9 +16,13 @@ export class HeaderComponent implements OnInit {
    this.authService.logOut()
  }
   ngOnInit() {
-    if(localStorage.getItem('USER')){
-this.user=JSON.parse(localStorage.getItem('USER') || " ")
-this.name=this.user.name_lastName.split(' ')
+    this.authService.itemValue.subscribe((nextValue:any) => {
+      console.log(nextValue)
+     this.user= nextValue // this will happen on every change
+   })
+    if(this.user){
+
+this.name=this.user.name.split(' ') + ' ' + this.user.lastName
     }
   }
  
