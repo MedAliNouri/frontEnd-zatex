@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { errorMgmt } from '../api/errorHandling';
-import { User } from 'src/app/models/userModel';
+import { User } from 'src/app/shared/models/userModel';
 
 @Injectable({
   providedIn: 'root'

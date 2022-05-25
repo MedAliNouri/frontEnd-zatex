@@ -8,7 +8,7 @@ import {ButtonModule} from 'primeng/button';
 import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { NgxLetterImageAvatarModule } from 'ngx-letter-image-avatar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
-
+import {BadgeModule} from 'primeng/badge';
 @NgModule({
   declarations: [
     ContentLayoutComponent,
@@ -16,6 +16,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     SideBarComponent
   ],
   imports: [
+    BadgeModule,
     ButtonModule,
     CommonModule,
     BrowserModule,

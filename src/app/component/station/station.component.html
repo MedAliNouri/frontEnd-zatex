@@ -1,0 +1,129 @@
+<p-card header="Station Table" [style]="{width: '100%'}" styleClass="p-card-shadow">
+    <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple type="button" label="New" icon="fa fa-plus" (click)="openNew()"
+                class="p-button-sm p-button-raised "></button>
+            <button [style]="{'margin-left': '5px'}" pButton pRipple type="button" icon="fa fa-trash"
+                class="p-button-sm p-button-raised p-button-danger ml-4"></button>
+
+        </ng-template>
+
+        <ng-template pTemplate="right">
+            <div class="flex align-items-center justify-content-between">
+
+                <span class="p-input-icon-left">
+                    <i class="fa fa-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target['value'], 'contains')"
+                        placeholder="Search..." />
+                </span>
+            </div>
+
+        </ng-template>
+    </p-toolbar>
+    <div class="row" *ngIf="stations?.length==0">
+        <div class="col-sm-4 stationCard">
+            <img src="assets/empty.png" alt="">
+            <h5>Aucune station n'est disponible</h5>
+        </div>
+    </div>
+    <div class="row" *ngIf="stations">
+        <div class="col-sm-4 stationCard" *ngFor="let item of stations">
+            <a class="edit_icon" routerLink="/station/edit/{{item._id}}"><span class="fa fa-edit"></span></a>
+            <br>
+            <a class="delete_icon" (click)="delete_station(item._id)"><span class="fa fa-trash"></span></a>
+            <img src="assets/forbidden.png" alt="">
+            <h5>{{item.name}}</h5>
+            <hr>
+            <div class="information">
+<!-- -------------------------------------------------------------------------- -->
+                <span><i class="fa fa-map-marker"></i> Adress</span><br>
+                {{item.city}} - {{item.street}} - {{item.zipCode}}
+                <br>
+<!-- -------------------------------------------------------------------------- -->
+                <span>Tanks</span><br>
+                <div *ngIf="item.tanks?.length==0">
+                    <img style="width: 70px;" src="assets/empty.png" alt="">
+                    <span class="smallText">Aucun tank n'est disponible</span>
+                </div>
+                <div>
+                    <div class="tank" *ngFor="let tank of item.tanks">
+                        <i class="fa fa-battery-full" aria-hidden="true"></i>
+                        {{tank.type}} | {{tank.capacity}}
+                    </div>
+                </div>
+<!-- -------------------------------------------------------------------------- -->
+                <span>Employé</span><br>
+                <p-avatarGroup styleClass="mb-3">
+                    <p-avatar *ngFor="let employee of item.Employees"
+                        image="https://www.primefaces.org/primeng/assets/showcase/images/demo/avatar/amyelsner.png"
+                        size="large" shape="circle"></p-avatar>
+                    <p-avatar label="+2" shape="circle" size="large"
+                        [style]="{'background-color':'#9c27b0', 'color': '#ffffff'}"></p-avatar>
+                </p-avatarGroup>
+            </div>
+        </div>
+    </div>
+</p-card>
+<p-dialog [(visible)]="dialog_show" [style]="{width: '450px'}" header="New station Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="stationForm">
+            <div class="field">
+                <label for="name">name</label>
+                <input formControlName="name" placeholder="nom " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('name','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('name','required')  && submited">Name and lastName is required.</small>
+
+            </div>
+            <div class="field">
+                <label for="name">street</label>
+                <input formControlName="street" placeholder="street " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('street','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('street','required')  && submited">street is required.</small>
+
+            </div>
+            <div class="field">
+                <label for="name">city</label>
+                <input formControlName="city" placeholder="city " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('city','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('city','required')  && submited">city is required.</small>
+
+            </div>
+
+            <div class="field">
+                <label for="name">zipCode</label>
+                <input formControlName="zipCode" placeholder="zipCode " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('zipCode','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('zipCode','required')  && submited">zipCode is required.</small>
+
+            </div>
+            <div class="field">
+                <label for="name">departement</label>
+                <input formControlName="departement" placeholder="departement " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('departement','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('departement','required')  && submited">departement is required.</small>
+
+            </div>
+            <div class="field">
+                <label for="name">post</label>
+                <input formControlName="post" placeholder="post " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': isControlHasError('post','required')  && submited}" pInputText />
+                <small id="username2-help" class="p-error block"
+                    *ngIf="isControlHasError('post','required')  && submited">post is required.</small>
+
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button [disabled]="loading_save_result" pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+            (click)="saveStation()"></button>
+    </ng-template>
+</p-dialog>
+<!-- <p-gmap [options]="options" [style]="{'width':'100%','height':'320px'}" ></p-gmap> -->

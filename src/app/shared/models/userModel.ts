@@ -9,6 +9,7 @@ export interface User {
     password:string;
     urlPhoto:string
     role:Role
+    gerant:string
 }
 
 

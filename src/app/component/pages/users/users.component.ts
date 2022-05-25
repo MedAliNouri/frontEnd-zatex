@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { User } from 'src/app/models/userModel';
+import { User } from 'src/app/shared/models/userModel';
 import { UserService } from 'src/app/services/api/user.service';
+import { AuthService } from 'src/app/services/authentification/auth.service';
 
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -32,10 +33,14 @@ export class UsersComponent implements OnInit {
   loadingImg = false
   imagetosave: any
   loading_save_result = false
+  gerant:any
   @ViewChild('f') form!: NgForm
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService,private authService:AuthService) {
     this.getAll()
+    this.authService.itemValue.subscribe(next=>{
+      this.gerant=next
+    })
   }
 
 
@@ -140,7 +145,7 @@ delete(id:any){
       this.loading_save_result=true
       console.log(this.user)
       if(!this.user._id){
-        this.userService.create_user_with_avatar(this.user,this.imagetosave).subscribe((res:any)=>{
+        this.userService.create_user_with_avatar(this.gerant,this.user,this.imagetosave).subscribe((res:any)=>{
           this.loading_save_result=false
     console.log(res)
     if(res.status==false){

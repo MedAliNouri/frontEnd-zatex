@@ -1,0 +1,11 @@
+<div class="employee">
+    <h5> <i class="fa fa-bell" aria-hidden="true"></i> Notification</h5>  <span class="see_all">Voir tout</span>
+      <hr>
+      <div class="cards" *ngFor="let item of notification" >
+        
+        <img   severity="danger" class="employeeImg" src="assets/notification.png" alt="">
+        <span style="margin-left: 15px;">{{item.user}} </span><span style="margin-left: 15px;">{{item.text}} </span>
+        
+        <i   class="fa fa-eye employee_action" aria-hidden="true"></i>
+    </div>
+  </div>

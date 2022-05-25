@@ -1,5 +1,60 @@
-<div class="row">
-    <div class="col-sm-6">
-        <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+<div class="row" style="padding: 20px;">
+  <div class="col-sm-12 " style="background-color:rgb(245 243 255);;padding: 10px;border-radius: 20px;">
+    <div class="employee">
+      <h3>Bonjour {{user.name}} {{user.lastName}}</h3> 
+    </div>
+  </div>
+ 
+    <div class="col-sm-6 card" style="background-color:rgb(245 243 255);;padding: 10px;border-radius: 20px;">
+      <!-- -->
+      <app-employee></app-employee>
+     
+      <app-dashboard-notification></app-dashboard-notification>
+    </div>
+    <div class="col-sm-6 card" style="background-color:rgb(245 243 255);;padding: 10px;border-radius: 20px;">
+        <div class="employee" >
+            <h5> <i class="fa fa-map-marker" aria-hidden="true"></i> Stations</h5> <a routerLink="/station"> <span class="see_all">Voir tout</span></a>
+              <hr>
+              <div  class="cards" *ngFor="let item of notification" >
+                
+                <img   severity="danger" class="employeeImg" src="assets/forbidden.png" alt="">
+                <span style="margin-left: 15px; font-weight: 500;font-size: 24px;">Ben Arous rades </span>
+                <i   class="fa fa-eye employee_action" aria-hidden="true"></i>
+                <br>
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="tanks cards row">
+                            <div class="imgTank col-sm-2">
+                               <img  style="margin: auto;" severity="danger"  src="assets/isolated-oil-tank-3d-icon_77235-215-removebg-preview.png" alt="">
+                            </div>
+                            <div class="col-sm-10">
+                               <div style="display: inline-block;width: 100%;">gazoil <br>
+                                   <p-progressBar [value]="value"></p-progressBar>
+                               </div>
+                            </div>
+                              
+                               
+                           </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="tanks cards row">
+                            <div class="imgTank col-sm-2">
+                               <img  style="margin: auto;" severity="danger"  src="assets/isolated-oil-tank-3d-icon_77235-215-removebg-preview.png" alt="">
+                            </div>
+                            <div class="col-sm-10">
+                               <div style="display: inline-block;width: 100%;">gazoil <br>
+                                   <p-progressBar [value]="value"></p-progressBar>
+                               </div>
+                            </div>
+                              
+                               
+                           </div>
+                    </div>
+                </div>
+
+              
+            </div>
+          </div>
     </div>
 </div>

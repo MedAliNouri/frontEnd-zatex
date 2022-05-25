@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs';
-import { User } from 'src/app/models/userModel';
+import { User } from 'src/app/shared/models/userModel';
 import { environment } from 'src/environments/environment';
 import { errorMgmt } from './errorHandling';
 
@@ -17,6 +17,9 @@ export class UserService {
   getOne(id:any){
     return this.http.get<User[]>(this.API+ "/"+id)
   }
+  getAllEmployee() {
+    return this.http.get<User[]>(this.API +"/employee")
+  }
   getAll() {
     return this.http.get<User[]>(this.API)
   }
@@ -27,10 +30,13 @@ export class UserService {
     let doc = { email }
     return this.http.post(this.API_AUTH + "/send_verification_mail", doc).pipe(catchError(errorMgmt));
   }
-  create_user_with_avatar(user:User,file:File){
+  getEmployeeForGerant(id:any){
+    return this.http.get<User[]>(this.API+ "/getEmployeeForGerant/"+id)
+  }
+  create_user_with_avatar(gerant:any,user:User,file:File){
     const formData: FormData = new FormData();
     console.log(user)
-
+user.gerant=gerant._id
     formData.append('file', file);
     formData.append('user',JSON.stringify(user) );
     console.log(formData)

@@ -26,14 +26,14 @@ user:any
        this.user=res
       
        this.registerForm=  this.fb.group({
-        name: new FormControl(this.user.name, [Validators.required]),
+        name: new FormControl(this.user.name,[Validators.required]),
         lastName: new FormControl(this.user.lastName, [Validators.required]),
-        post: new FormControl(this.user.post, [Validators.required]),
+        post: new FormControl(this.user.post,[Validators.required]),
         civility: new FormControl(this.user.civility, [Validators.required]),
-        phone: new FormControl(this.user.phone, [Validators.required]),
+        phone: new FormControl(this.user.phone,[Validators.required]),
         socialReason: new FormControl(this.user.socialReason, [Validators.required]),
-          email: new FormControl(this.user.email, [Validators.required,Validators.email]),
-          password: new FormControl("", [Validators.required,Validators.min(6)]),
+          email: new FormControl(this.user.email,[Validators.required,Validators.email]),
+          password: new FormControl("",[Validators.required,Validators.min(6)]),
        
         }
         )

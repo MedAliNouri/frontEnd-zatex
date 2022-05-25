@@ -1,0 +1,295 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs9TsvNnykaG5lvz9UaVI9M1XZ7rMv18E" async defer></script>
+<p-card *ngIf="this.station" header="{{station.name | uppercase}} STATION" [style]="{width: '100%'}" styleClass="p-card-shadow">
+    <p-divider align="left">
+        <span class="fa fa-address-card"> basic informations</span>
+    </p-divider>
+    <form #stationForm="ngForm">
+        <div class="row">
+            <div class="field col-sm-4">
+                <label for="name">name</label>
+                <input name="name" [(ngModel)]="station.name" placeholder="nom " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': !station.name  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.name && submited">Name is
+                    required.</small>
+
+            </div>
+            <div class="field  col-sm-4">
+                <label for="name">street</label>
+                <input name="street" [(ngModel)]="station.street" placeholder="street " style="width: 100%;"
+                    [ngClass]="{'ng-invalid':!station.street  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.street && submited">street is
+                    required.</small>
+
+            </div>
+            <div class="field col-sm-4">
+                <label for="name">city</label>
+                <input name="city" [(ngModel)]="station.city" placeholder="city " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': !station.city && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.city && submited">city is
+                    required.</small>
+
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:10px ;">
+            <div class="field col-sm-4">
+                <label for="name">zipCode</label>
+                <input name="zipCode" [(ngModel)]="station.zipCode" placeholder="zipCode " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': !station.zipCode  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.zipCode  && submited">zipCode is
+                    required.</small>
+
+            </div>
+            <div class="field col-sm-4">
+                <label for="name">departement</label>
+                <input name="departement" [(ngModel)]="station.departement" placeholder="departement "
+                    style="width: 100%;" [ngClass]="{'ng-invalid':!station.departement  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.departement  && submited">departement
+                    is required.</small>
+
+            </div>
+            <div class="field col-sm-4">
+                <label for="name">post</label>
+                <input name="post" [(ngModel)]="station.post" placeholder="post " style="width: 100%;"
+                    [ngClass]="{'ng-invalid': !station.post   && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!station.post  && submited">post is
+                    required.</small>
+            </div>
+        </div>
+    </form>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <p-divider align="left">
+        <span class="fa fa-users"> Users </span>
+    </p-divider>
+    <div class="row">
+        <div *ngFor="let user of station.employees,let i=index" class="card col-sm-2 notUser">
+            <a (click)="deleteUser(i)"><span class="fa fa-trash"></span></a>
+            <div class="container">
+                <img src="{{user.urlPhoto}}" alt="">
+            </div>
+            <div class="user_info_data">
+                {{user.name}} {{user.lastName}}
+            </div>
+        </div>
+        <div class="card col-sm-2 notUser">
+            <div class="container">
+                <img src="assets/add.jpg" alt="">
+            </div>
+            <button (click)="open_new_user()" pButton pRipple type="button" label="add New" icon="fa fa-plus"
+                class="p-button-sm p-button-raised"></button>
+            <br>
+        </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <p-divider align="left">
+        <span class="fa fa-battery-full"> tanks </span>
+    </p-divider>
+    <div class="row">
+        <div *ngFor="let tank of station.tanks,let i=index" class="card col-sm-2 notUser">
+            <a class="delete_card" (click)="deleteTank(i)"><span class="fa fa-trash"></span></a>
+            <a class="edit_card" (click)="editTank(tank)"><span class="fa fa-edit"></span></a>
+            <div class="container">
+                <img src="assets/isolated-oil-tank-3d-icon_77235-215-removebg-preview.png" alt="">
+            </div>
+            <div class="user_info_data">
+                {{tank?.type}}
+            </div>
+        </div>
+        <div class="card col-sm-2 notUser">
+            <div class="container">
+                <img src="assets/gas-tank.png" alt="">
+            </div>
+            <button (click)="open_new_tank()" pButton pRipple type="button" label="add New" icon="fa fa-plus"
+                class="p-button-sm p-button-raised"></button>
+            <br>
+        </div>
+    </div>
+    <!-- --------------------------------------------------------------------------------------------- -->
+    <p-divider align="left">
+        <span class="fa fa fa-beer"> Pompes </span>
+    </p-divider>
+    <div class="row">
+        <div *ngFor="let pompe of station.pompes,let i=index" class="card col-sm-2 notUser">
+            <a class="delete_card" (click)="deletePompe(i)"><span class="fa fa-trash"></span></a>
+            <a class="edit_card" (click)="editPompe(pompe)"><span class="fa fa-edit"></span></a>
+            <div class="container">
+                <img src="assets/pump.webp" alt="">
+            </div>
+            <div class="user_info_data">
+                {{pompe?.name}}
+            </div>
+            <div *ngFor="let pistolet of pompe.pistolets">
+<img style="width: 50px;display:inline" src="" alt="">{{pistolet.type}}
+            </div>
+        </div>
+        <div class="card col-sm-2 notUser">
+            <div class="container">
+                <img src="assets/pump.webp" alt="">
+            </div>
+            <button (click)="open_new_pompe()" pButton pRipple type="button" label="add New" icon="fa fa-plus"
+                class="p-button-sm p-button-raised"></button>
+            <br>
+        </div>
+    </div>
+    <p-divider align="left">
+        <span class="fa fa-map"> Location</span>
+    </p-divider>
+    <p-gmap #gmap [style]="{'width':'100%','height':'320px', 'margin-bottom': '1em'}" [options]="options" [overlays]="overlays"
+       (onMapClick)="handleMapClick($event)" (onOverlayClick)="handleOverlayClick($event)" ></p-gmap>
+
+<button type="button" pButton label="Clear" icon="pi pi-times" (click)="clear()" style="margin-right:.25em"></button>
+<button type="button" pButton label="Zoom In" icon="pi pi-plus" (click)="zoomIn(gmap.getMap())" style="margin-right:.25em"></button>
+<button type="button" pButton label="Zoom Out" icon="pi pi-minus" (click)="zoomOut(gmap.getMap())"></button>
+
+<p-dialog showEffect="fade" [(visible)]="dialogVisible" header="New Location" [style]="{width: '300px'}">>
+    <div class="grid p-fluid" *ngIf="selectedPosition">
+        <div class="col-2"><label for="title">Label</label></div>
+        <div class="col-10"><input type="text" pInputText id="title" [(ngModel)]="markerTitle"></div>
+
+        <div class="col-2"><label for="lat">Lat</label></div>
+        <div class="col-10"><input id="lat" type="text" readonly pInputText [ngModel]="selectedPosition.lat()"></div>
+
+        <div class="col-2"><label for="lng">Lng</label></div>
+        <div class="col-10"><input id="lng" type="text" readonly pInputText [ngModel]="selectedPosition.lng()"></div>
+
+        <div class="col-2"><label for="drg">Drag</label></div>
+        <div class="col-10"><p-checkbox [(ngModel)]="draggable" binary="true" [style]="{'margin-top':'.25em'}"></p-checkbox></div>
+    </div>
+    <ng-template pTemplate="footer">
+        <div>
+            <button type="button" pButton label="Add Marker" icon="pi-plus" (click)="addMarker()"></button>
+        </div>
+    </ng-template>
+</p-dialog>
+</p-card>
+
+
+
+
+
+
+<p-dialog [(visible)]="dialog_user" [style]="{width: '450px'}" header="Employees" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <p-listbox [options]="users" [(ngModel)]="station.employees" [metaKeySelection]="false" [checkbox]="true"
+            [filter]="true" [multiple]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}"
+            [style]="{'width':'100%'}">
+            <ng-template let-user pTemplate="item">
+                <div class="country-item">
+                    <img style="height: 50px;width: 50px;border-radius: 50%;display: inline-block;"
+                        src="{{user?.urlPhoto}}" />
+                    <div style="display: inline-block;margin-left: 10px;">{{user.name}}</div>
+                </div>
+            </ng-template>
+        </p-listbox>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            (click)="dialog_user=false"></button>
+        <button [disabled]="loading_save_result" pButton pRipple label="OK" icon="pi pi-check" class="p-button-text"
+            (click)="dialog_user=false"></button>
+    </ng-template>
+</p-dialog>
+<!-- --------------------------------------------------------------- -->
+<p-dialog [(visible)]="dialog_tank" [style]="{width: '450px'}" header="Tank Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="name">Type</label>
+            <p-dropdown name="role" [options]="type" [(ngModel)]="newTanks.type"></p-dropdown>
+
+            <p-message *ngIf="submitedTank && !newTanks.type" severity="error" text="Field is required"></p-message>
+        </div>
+        <div class="field ">
+            <label for="name">Capacity</label>
+            <p-inputNumber name="Capacity" [(ngModel)]="newTanks.capacity" placeholder="capacity " style="width: 100%;"
+                [ngClass]="{'ng-invalid':!newTanks?.capacity  && submitedTank}"></p-inputNumber>
+            <small id="username2-help" class="p-error block" *ngIf="!newTanks?.capacity && submitedTank">capacity
+                is required.</small>
+
+        </div>
+        <div class="row">
+            <div class="field col-sm-6">
+                <label for="name">Min</label>
+                <p-inputNumber min="0" [max]="newTanks?.max || 0" name="Capacity" [showButtons]="true"
+                    buttonLayout="horizontal" spinnerMode="horizontal" [step]="1" decrementButtonClass="p-button-danger"
+                    incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus" [(ngModel)]="newTanks.min" placeholder="min " style="width: 100%;"
+                    [ngClass]="{'ng-invalid':!newTanks?.min  && submitedTank}"></p-inputNumber>
+                <small id="username2-help" class="p-error block" *ngIf="!newTanks?.min && submitedTank">min
+                    is required.</small>
+
+            </div>
+            <div class="field col-sm-6">
+                <label for="name">Max</label>
+                <p-inputNumber min="0" name="max" [showButtons]="true" buttonLayout="horizontal"
+                    spinnerMode="horizontal" [step]="1" decrementButtonClass="p-button-danger"
+                    incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus" [(ngModel)]="newTanks.max" placeholder="max " style="width: 100%;"
+                    [ngClass]="{'ng-invalid':!newTanks?.max  && submitedTank}"></p-inputNumber>
+                <small id="username2-help" class="p-error block" *ngIf="!newTanks?.max && submitedTank">max
+                    is required.</small>
+
+            </div>
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            (click)="dialog_tank=false"></button>
+        <button pButton pRipple label="OK" icon="pi pi-check" class="p-button-text" (click)="saveTank()"></button>
+    </ng-template>
+</p-dialog>
+<!-- --------------------------------------------------------------- -->
+<p-dialog [(visible)]="dialog_pompe" [style]="{width: '450px'}" header="Tank Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field ">
+            <label for="name">Name</label>
+            <input name="departement" [(ngModel)]="newPompe.name" placeholder="Nom du pompe " style="width: 100%;"
+                [ngClass]="{'ng-invalid':!newPompe.name  && submitedPompe}" pInputText />
+            <small id="username2-help" class="p-error block" *ngIf="!newPompe.name  && submitedPompe">name
+                is required.</small>
+
+        </div>
+        <p-divider align="left">
+            <span class="fa fa-shower"> Pistolets </span>
+        </p-divider>
+        <div *ngFor="let pistolet of newPompe.pistolets,let i=index">
+
+            <div class="field ">
+                <label for="name">Name</label>
+                <input name="departement" [(ngModel)]="pistolet.name" placeholder="Nom du pistolet {{i+1}} "
+                    style="width: 100%;" [ngClass]="{'ng-invalid':!pistolet.name  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!pistolet.name  && submited">name
+                    is required.</small>
+
+            </div>
+            <div class="field ">
+                <label for="name">Type</label>
+                <input name="departement" [(ngModel)]="pistolet.type" placeholder="Type du pistolet  {{i+1}} "
+                    style="width: 100%;" [ngClass]="{'ng-invalid':!pistolet.type  && submited}" pInputText />
+                <small id="username2-help" class="p-error block" *ngIf="!pistolet.type  && submited">type
+                    is required.</small>
+
+            </div>
+            <p-divider align="left">
+
+            </p-divider>
+        </div>
+        <button (click)="add_new_pistolet()" pButton pRipple type="button" label="ajouter un nouveau pistolet"
+            icon="fa fa-plus" class="p-button-sm p-button-raised"></button>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            (click)="dialog_tank=false"></button>
+        <button [disabled]="loading_save_result" pButton pRipple label="OK" icon="pi pi-check" class="p-button-text"
+            (click)="savePompe()"></button>
+    </ng-template>
+</p-dialog>
+
+<button (click)="save_station()" class="save_button"><i class="fa fa-save"></i> Enregistrer</button>

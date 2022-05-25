@@ -6,11 +6,15 @@
 
       <ul >
         <div class="dropdown">
-          <a (click)="op.toggle($event)">
+          <a (click)="op.toggle($event)"><span style="margin-right: 5px; color:white;font-size: 20px;">{{user?.name}} {{user?.lastName}}</span><i  pBadge severity="success" style="min-width: 0.5rem!important;height:0.5rem;">  
+            
             <img *ngIf="user.urlPhoto" class="app-avatar" [src]="user.urlPhoto" alt="avatar">
             <img *ngIf="!user.urlPhoto" class="app-avatar" [ngxLetterImageAvatar]="{ name:name }" alt="avatar">
+          </i>
+         
           </a>
         </div>
+        
       </ul>
 
     

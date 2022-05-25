@@ -13,6 +13,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TokenInterceptorService } from './services/authentification/token-interceptor.service';
 import { NotFoundComponent } from './component/pages/not-found/not-found.component';
 import { PagesModule } from './component/pages/pages.module';
+import { StationModule } from './component/station/station.module';
+import { IndexModule } from './component/index/index.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +31,10 @@ import { PagesModule } from './component/pages/pages.module';
     AuthModule,
     DashboardModule,
     SharedModule,
-    PagesModule
+    PagesModule,
+    StationModule,
+    IndexModule
+    
   ],
   providers: [ {
    

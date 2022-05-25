@@ -1,0 +1,51 @@
+.employeeImg{
+    width: 45px;
+    border-radius: 50%;
+
+}
+.employee_action{
+    margin-left: 10px;
+    color: #000060;
+    font-size: 28px;
+    float: right;
+    margin-top: 6px;
+    cursor: pointer;
+}
+.employee{
+    margin-top: 10px;
+}
+.see_all{
+    float: right;
+    margin-top: -27px;
+    cursor: pointer;
+    font-weight: 500;
+}
+.cards{
+    box-shadow: 0px 0px 11px 2px #0000001c;
+    background-color: white;
+    padding:10px;
+    border-radius:10px;
+    margin: 14px 0px;
+}
+.card{
+    margin: 5px;
+    width: calc(50% - 10px);
+}
+.imgTank{
+    img{
+        width: 50px;
+    }
+
+  margin-left: -20px;
+  margin-right:20px;
+}
+
+.cards{
+    transition: all .2s ease-in-out;
+}
+  
+.cards:hover { transform: scale(1.01); }
+
+a{
+    text-decoration: none;
+}

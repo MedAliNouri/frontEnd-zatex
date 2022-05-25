@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { User } from 'src/app/models/userModel';
+import { User } from 'src/app/shared/models/userModel';
 import { AuthService } from 'src/app/services/authentification/auth.service';
 import { SideBarService } from 'src/app/utils/side-bar.service';
 

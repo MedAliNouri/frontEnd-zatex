@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/app/models/userModel';
+import { User } from 'src/app/shared/models/userModel';
 import { UserService } from 'src/app/services/api/user.service';
 import { AuthService } from 'src/app/services/authentification/auth.service';
 import { ConfirmedValidator } from 'src/app/shared/formValidators/passwordMatch';

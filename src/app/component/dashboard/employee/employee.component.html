@@ -1,0 +1,11 @@
+<div class="employee">
+    <h5> <i class="fa fa-users" aria-hidden="true"></i> Votre employés</h5> <a routerLink="/pages/users"> <span class="see_all">Voir tout</span></a>
+      <hr>
+      <div *ngFor="let item of employee" class="cards">
+        
+          <i  pBadge severity="success" style="min-width: 0.5rem!important;height:0.5rem;">  <img   severity="danger" class="employeeImg" [src]="item.urlPhoto" alt=""></i>
+          <span style="margin-left: 15px;">{{item.name}} {{item.lastName}}</span>
+          <i  class="fa fa-commenting employee_action" aria-hidden="true"></i>
+          <i   class="fa fa-eye employee_action" aria-hidden="true"></i>
+      </div>
+  </div>

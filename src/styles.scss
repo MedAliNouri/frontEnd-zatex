@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 body{
     background-color: #ffffff!important;
+    overflow-x: hidden
 }
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
@@ -12,4 +13,14 @@ body{
 }
 p-inputnumber{
     width: 100%!important;
+}
+.p-badge {
+    background: #3B82F6;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 0.7rem!important;
+    height: 0.7rem!important;
+    line-height: 1.5rem;
+   
 }
